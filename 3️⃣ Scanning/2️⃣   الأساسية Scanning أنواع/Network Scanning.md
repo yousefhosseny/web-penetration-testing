@@ -1,4 +1,3 @@
-# **🔍 Network Scanning | فحص الشبكات**
 
 ## **🛠️ ما هو Network Scanning؟**
 
