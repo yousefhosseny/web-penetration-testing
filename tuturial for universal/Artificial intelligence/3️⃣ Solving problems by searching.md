@@ -1,320 +1,187 @@
-تمام، هشرحلك المحاضرة دي (CS203 - المحاضرة الثالثة) بطريقة أعمق وأبسط زي ما عملت قبل كده، من غير ما أزود مواضيع جديدة. هنقسمها لأجزاء صغيرة، وكل جزء هيكون فيه شرح مفصل وبسيط جدًا مع أمثلة، وفي الآخر هخلّص كل جزء بخلاصة، وبعدين هعمل قسم سؤال وجواب شامل يغطي كل حاجة في المحاضرة.
+Here’s a deep yet simple explanation of Lecture 3 from Dr. Doaa El-Shahat’s CS203 course on Artificial Intelligence, titled "Solving Problems by Searching." I’ll break it into parts based on the lecture content, explain each one clearly like I’m talking to a friend who’s curious, and add the Arabic translation after each section. I’ll stick strictly to the lecture topics.
 
 ---
 
-### **الجزء الأول: إيه هي المحاضرة دي؟**
-المحاضرة دي جزء من مادة الذكاء الاصطناعي (CS203)، المحاضرة الثالثة بتاريخ 22 فبراير 2025، بتاعة د. دعاء الشحات من جامعة الزقازيق في مصر. الموضوع الرئيسي هو **حل المشاكل بالبحث**. يعني إزاي نستخدم الكمبيوتر عشان نلاقي حلول لمشاكل زي إنك تروحي من مدينة لمدينة تانية أو تحلي لعبة زي الـ 8-Puzzle.
+### 1. Recap of Previous Lectures
+- **Simple Idea**: A quick look back at what we’ve learned about AI and agents.
+- **Deeper Look**: 
+  - **AI Definitions**: From Lecture 1, AI can be:
+    1. **Thinking Humanly**: Machines mimic our brain (like how we think).
+    2. **Thinking Rationally**: Machines use logic (like solving puzzles with rules).
+    3. **Acting Humanly**: Machines act like us (fooling us in the Turing Test).
+    4. **Acting Rationally**: Machines make smart moves (doing the best thing).
+  - **Environment Types**: From Lecture 2, where agents work can be:
+    - Fully vs. Partially Observable (sees all or some), Single vs. Multi-Agent (alone or with others), Deterministic vs. Stochastic (predictable or random), etc.
+  - **Agent Basics**: Agents have sensors (to see), actuators (to act), and properties like autonomy (working alone), adaption (learning), and cooperation (teamwork).
 
-المحاضرة بتركز على الحاجات دي:
-1. **مراجعة (Recap)**: بتراجع مفاهيم أساسية عن الذكاء الاصطناعي وأنواع الوكلاء.
-2. **أنواع الوكلاء**: زي Model-Based وGoal-Based وUtility-Based.
-3. **وكلاء حل المشاكل**: إزاي الوكيل بيفكر ويحل المشاكل.
-4. **أمثلة على المشاكل**: زي خريطة رومانيا والـ Vacuum Cleaner والـ 8-Puzzle.
-5. **البحث عن الحلول**: إزاي ندور على الطريق الصح.
-6. **Uninformed Search**: طرق بتدور من غير تلميحات.
-7. **Informed Search**: طرق ذكية بتستخدم تلميحات (Heuristic).
-8. **Heuristic Functions**: التلميحات دي إيه وإزاي بتساعد.
-
-#### **مثال بسيط:**
-- تخيلي عايزة تروحي من بيتك للسوق:
-  - ممكن تجربي كل الشوارع واحد واحد (Uninformed).
-  - أو تستخدمي تلميحة زي "السوق جنب المحطة" عشان تختصري الطريق (Informed).
-
-**الخلاصة**: المحاضرة بتشرح إزاي الذكاء الاصطناعي بيحل مشاكل باستخدام وكلاء وبحث، مع أمثلة عملية.
-
----
-
-### **الجزء التاني: مراجعة المفاهيم الأساسية (Recap)**
-المحاضرة بتبدأ بمراجعة سريعة لأساسيات الذكاء الاصطناعي (AI) والبيئات اللي بيشتغل فيها الوكيل.
-
-#### **تعريف الذكاء الاصطناعي (4 تصنيفات حسب Russell وNorvig):**
-1. **Thinking Humanly (التفكير زي الإنسان)**: زي "Cognitive Modeling"، يعني نعمل كمبيوتر يفكر زي دماغ البني آدم.
-2. **Thinking Rationally (التفكير بعقلانية)**: بيستخدم المنطق (Logic) عشان يحل المشاكل، زي قوانين الفكر.
-3. **Acting Humanly (التصرف زي الإنسان)**: زي اختبار تورينج (Turing Test)، لو الكمبيوتر يقدر يخدعك إنه إنسان يبقى ذكي.
-4. **Acting Rationally (التصرف بعقلانية)**: يعني يعمل الصح في الوقت المناسب، ودي الطريقة اللي بنركز عليها (Rational Agent).
-
-#### **خصائص البيئة:**
-1. **Fully Observable vs Partially Observable**: كل حاجة واضحة (زي خريطة) ولا في حاجات مخفية (زي ضباب)؟
-2. **Single Agent vs Multiagent**: وكيل واحد (زي أنتي بتدوري) ولا أكتر من وكيل (زي فريق)؟
-3. **Competitive vs Cooperative**: بيتنافسوا (زي لعبة) ولا بيتعاونوا (زي شغل جماعي)؟
-4. **Deterministic vs Stochastic**: النتايج مضمونة (زي طريق ثابت) ولا فيه احتمال (زي الجو يتغير)؟
-5. **Episodic vs Sequential**: كل خطوة لوحدها (زي غسل طبق) ولا مرتبطة (زي السفر)؟
-6. **Static vs Dynamic**: البيئة ثابتة (زي خريطة قديمة) ولا بتتغير (زي طريق يتقفل)؟
-7. **Discrete vs Continuous**: النقاط محددة (زي محطات) ولا مفتوحة (زي مسافة في البحر)؟
-
-#### **مفاهيم إضافية:**
-- **Autonomy**: الوكيل بيقرر لوحده.
-- **Adaption**: بيتعلم ويتكيف.
-- **Cooperation**: بيتعاون مع غيره.
-- **Sensors**: بيشوف بيهم العالم (زي عينيكي).
-- **Actuators**: بيتصرف بيهم (زي إيديكي).
-- **Environment**: المكان اللي بيشتغل فيه.
-
-#### **مثال بسيط:**
-- لو بتدوري على مفتاح في البيت:
-  - Fully Observable: كل الأوض مفتوحة ومضلمة.
-  - Single Agent: أنتي بس اللي بتدوري.
-  - Deterministic: المفتاح مش هيتحرك لوحده.
-
-**الخلاصة**: المراجعة بتراجع تعريف الذكاء الاصطناعي وخصائص البيئة اللي بتحدد إزاي الوكيل بيفكر ويتصرف.
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: نظرة سريعة على اللي اتعلمناه عن الذكاء الاصطناعي والوكلاء.
+- **شرح أعمق**: 
+  - **تعريفات الذكاء الاصطناعي**: من المحاضرة 1، الذكاء الاصطناعي ممكن يكون:
+    1. **التفكير زي البشر**: الآلات بتقلد دماغنا (زي طريقة تفكيرنا).
+    2. **التفكير بعقلانية**: الآلات بتستخدم المنطق (زي حل ألغاز بقوانين).
+    3. **التصرف زي البشر**: الآلات بتتصرف زينا (بتخدعنا في اختبار تورينج).
+    4. **التصرف بعقلانية**: الآلات بتعمل حركات ذكية (بتعمل أحسن حاجة).
+  - **أنواع البيئات**: من المحاضرة 2، المكان اللي الوكلاء بيشتغلوا فيه ممكن يكون:
+    - مرصود كلياً أو جزئياً (بيشوف كل حاجة أو جزء)، فردي أو متعدد (لوحده أو مع غيره)، محدد أو عشوائي (متوقع أو مفاجئ)، إلخ.
+  - **أساسيات الوكيل**: الوكلاء عندهم حساسات (عشان يشوفوا)، مُحركات (عشان يتحركوا)، وصفات زي الاستقلالية (يشتغل لوحده)، التكيف (يتعلم)، والتعاون (يعمل في فريق).
 
 ---
 
-### **الجزء التالت: أنواع الوكلاء (Agent Types)**
-المحاضرة بتشرح 4 أنواع من الوكلاء، وكل نوع بيشتغل بطريقة مختلفة.
+### 2. Agent Types (Focus on Model-Based, Goal-Based, Utility-Based)
+- **Simple Idea**: Agents can be simple or smart—here’s how some of the smarter ones work.
+- **Deeper Look**: 
+  - **Model-Based Reflex Agent**: 
+    - It remembers stuff to deal with tricky worlds where it can’t see everything.
+    - Example: A car sees brake lights turn on by remembering the last camera frame—not just reacting to now.
+    - It knows: (1) How the world changes (a car gets closer), (2) How its actions work (steering turns the car).
+  - **Goal-Based Agent**: 
+    - It has a big goal and picks actions to reach it.
+    - Example: A taxi wants to get to the airport—it plans steps to get there, not just reacts.
+    - Problem: It might reach the goal but not in the best way.
+  - **Utility-Based Agent**: 
+    - It picks the best way to reach a goal by scoring options.
+    - Example: Taxi chooses the fastest, safest route by giving points to paths (like 10 for quick, 8 for safe).
 
-#### **1. Simple Reflex Agent (الوكيل البسيط)**
-- **إزاي بيشتغل؟**: بيبص على اللي قدامه دلوقتي (Percept) ويتصرف على طول من غير ما يفتكر حاجة قديمة.
-- **مثال بسيط:** مفتاح النور، لو شاف عتمة يولّع، لو شاف نور يطفي.
-- **مكوناته:**
-  1. **Sensors**: بيشوف بيهم الحالة (زي عين بتشوف النور).
-  2. **Condition-Action Rules**: قواعد زي "لو في عتمة، ولّع".
-  3. **Actuators**: بينفذ القرار (زي إيد بتضغط على المفتاح).
-- **مثال عملي:**
-  - **Vacuum Cleaner**: لو شاف أوساخ يمصها على طول.
-  - **Automatic Door**: لو شاف حد قريب يفتح.
-- **إزاي بيتصرف؟**: بيبص على الحالة اللي شايفها ويختار الحركة بناءً على قواعد جاهزة.
-
-**الخلاصة**: Simple Reflex Agent زي مكنة بسيطة بتتصرف على طول بناءً على اللي شايفاه، من غير ذاكرة.
-
-#### **2. Model-Based Reflex Agent (الوكيل المعتمد على نموذج)**
-- **إزاي بيشتغل؟**: بيحتفظ بذاكرة صغيرة (Internal State) عشان يعرف إيه اللي بيحصل حواليه، حتى لو مش شايف كل حاجة.
-- **مثال بسيط:** ترموستات، بيفتكر درجة الحرارة اللي فاتت عشان يقرر يسخن ولا يبرد.
-- **مكوناته:**
-  1. **Sensors**: بيشوف الحالة دلوقتي.
-  2. **Internal State**: ذاكرة بتحفظ اللي حصل قبل كده.
-  3. **Model**: بيعرف إزاي العالم بيتغير وإزاي حركاته بتأثر.
-  4. **Condition-Action Rules**: بيقرر بناءً على الحالة والذاكرة.
-  5. **Actuators**: بينفذ القرار.
-- **مثال عملي:**
-  - **Autonomous Car**: بيفتكر إن العربية اللي جنبه كانت بعيدة من ثانية، فلو قربت يبطئ.
-  - **Robotic Vacuum**: بيرسم خريطة للبيت ويفتكر فين نظف.
-- **إزاي بيتصرف؟**: بيجمع بين اللي شايفه دلوقتي واللي فاكره عشان يقرر أذكى.
-
-**الخلاصة**: Model-Based Agent زي واحد بيفتكر اللي حصل عشان يتصرف صح، حتى لو البيئة مش واضحة كلها.
-
-#### **3. Goal-Based Agent (الوكيل الموجه للهدف)**
-- **إزاي بيشتغل؟**: عنده هدف معين (Goal) وبيدور على الطريق اللي يوصله للهدف ده.
-- **مثال بسيط:** لو عايزة تروحي السوق، بتفكري إزاي توصلي بدل ما تجربي كل الشوارع.
-- **مكوناته:**
-  1. **Sensors**: بيشوف الحالة.
-  2. **Internal State**: بيفتكر اللي حصل.
-  3. **Goals**: الهدف اللي عايز يوصله.
-  4. **Model**: بيعرف إزاي يتحرك للهدف.
-  5. **Actuators**: بينفذ الحركة.
-- **مثال عملي:** تاكسي عايز يوصل المطار، بيختار الطريق اللي يوصله هناك.
-- **إزاي بيتصرف؟**: بيفكر "لو عملت كده، هوصل للهدف ولا لأ؟" وبيختار الحركة المناسبة.
-
-**الخلاصة**: Goal-Based Agent زي واحد عنده خطة وهدف وبيشتغل عشان يحققه.
-
-#### **4. Utility-Based Agent (الوكيل المعتمد على الفائدة)**
-- **إزاي بيشتغل؟**: بيختار الحركة اللي تجيب أكبر فايدة (Utility)، مش بس يوصل للهدف.
-- **مثال بسيط:** لو عايزة تروحي السوق، بتختاري الطريق اللي أسرع وأرخص بدل الطريق الطويل.
-- **مكوناته:**
-  1. **Sensors**: بيشوف الحالة.
-  2. **Internal State**: بيفتكر اللي حصل.
-  3. **Goals**: الهدف.
-  4. **Utility Function**: بيقيس الفايدة (زي السرعة أو التكلفة).
-  5. **Actuators**: بينفذ أفضل حركة.
-- **مثال عملي:** تاكسي بيختار أسرع وأمان طريق للمطار بدل أي طريق.
-- **إزاي بيتصرف؟**: بيقارن الخيارات ويختار اللي فيه أكبر فايدة.
-
-**الخلاصة**: Utility-Based Agent زي واحد بيختار أحسن طريقة للهدف بناءً على فايدة، مش بس يوصل.
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: الوكلاء ممكن يكونوا بسيطين أو أذكياء—هنشوف هنا بعض الأذكياء بيشتغلوا إزاي.
+- **شرح أعمق**: 
+  - **وكيل رد فعل مبني على نموذج**: 
+    - بيفتكر حاجات عشان يتعامل مع عالم صعب مش بيشوف فيه كل حاجة.
+    - مثال: عربية بتشوف نور الفرامل بيشتغل لأنها بتفتكر آخر صورة من الكاميرا—مش بس بترد على دلوقتي.
+    - بيعرف: (1) العالم بيتغير إزاي (عربية بتقرب)، (2) حركاته بتعمل إيه (الدركسيون بيلف العربية).
+  - **وكيل قايم على الهدف**: 
+    - عنده هدف كبير وبيختار حركات عشان يوصله.
+    - مثال: تاكسي عايز يروح المطار—بيخطط خطوات عشان يوصل، مش بس بيرد.
+    - المشكلة: ممكن يوصل للهدف بس مش بأحسن طريقة.
+  - **وكيل قايم على الفائدة**: 
+    - بيختار أحسن طريقة للهدف بإنه يقيّم الخيارات.
+    - مثال: التاكسي بيختار أسرع وأأمن طريق بإنه يدي نقاط للطرق (زي 10 للسرعة، 8 للأمان).
 
 ---
 
-### **الجزء الرابع: وكلاء حل المشاكل (Problem-Solving Agents)**
-دا نوع من Goal-Based Agents، بيركز على إزاي يحل مشكلة معينة.
+### 3. Problem-Solving Agents
+- **Simple Idea**: These are goal-based agents that solve problems by figuring out steps to reach their goal.
+- **Deeper Look**: 
+  - They pick a goal (like “get to Bucharest”) and find a way to make it happen.
+  - **Problem Formulation**: Setting up the problem with five parts:
+    1. **Initial State**: Where you start (like Arad).
+    2. **Actions**: What you can do (like drive).
+    3. **Transition Model**: What happens when you act (drive from A to B, you’re in B).
+    4. **Goal Test**: Check if you’re done (are you in Bucharest?).
+    5. **Path Cost**: How much it costs (like distance or time).
+  - **Search**: Looking for the steps (action sequence) to go from start to goal.
 
-#### **إزاي بيشتغل؟**
-- بيحدد هدف (Goal) وبيدور على الخطوات اللي توصل للحل.
-- الخطوات دي اسمها **Search**.
-
-#### **Problem Formulation (صياغة المشكلة):**
-- لازم نحدد 5 حاجات:
-  1. **Initial State**: نقطة البداية (فين أنا دلوقتي؟).
-  2. **Actions**: الحركات اللي ممكن أعملها (أروح فين؟).
-  3. **Transition Model**: إزاي الحركة بتغير مكاني (لو رحت شمال هوصل فين؟).
-  4. **Goal Test**: إزاي أعرف إني وصلت (هل ده الهدف؟).
-  5. **Path Cost**: تكلفة الطريق (كام كيلو أو كام ساعة؟).
-
-#### **مثال بسيط:**
-- عايزة تروحي السوق:
-  - Initial State: بيتك.
-  - Actions: امشي شمال، جنوب، يمين.
-  - Transition Model: لو شمال، هتبقي في الشارع الكبير.
-  - Goal Test: هل وصلت السوق؟
-  - Path Cost: كام دقيقة بتمشي؟
-
-**الخلاصة**: Problem-Solving Agent بيحل المشاكل عن طريق تحديد الهدف والبحث عن الخطوات الصح.
-
----
-
-### **الجزء الخامس: أمثلة على المشاكل (Example Problems)**
-المحاضرة بتدي 3 أمثلة عملية عشان نفهم إزاي نصيغ المشاكل.
-
-#### **1. Romania Vacation**
-- **المشكلة:** أنتي في Arad (رومانيا) وعايزة تروحي Bucharest عشان الطيارة بكرة.
-- **الصياغة:**
-  1. **Initial State**: Arad.
-  2. **Actions**: اسوق من مدينة لمدينة (مثلاً من Arad لـ Sibiu).
-  3. **Transition Model**: لو سقت من Arad لـ Sibiu، هتبقي في Sibiu.
-  4. **Goal Test**: هل وصلت Bucharest؟
-  5. **Path Cost**: مجموع المسافات بين المدن (بالكيلومترات).
-- **الحل:** Arad → Sibiu → Fagaras → Bucharest.
-
-**الخلاصة**: مشكلة رومانيا بتشرح إزاي نلاقي طريق بين مدن باستخدام بحث.
-
-#### **2. Vacuum Cleaner**
-- **المشكلة:** مكنة بتكنس غرفتين، عايزة تنضف كل الأوساخ.
-- **الصياغة:**
-  1. **Initial State**: أي مكان (مثلاً في A وفيه أوساخ).
-  2. **Actions**: يمين، يسار، امص الأوساخ (Suck).
-  3. **Transition Model**: لو مصيتي في A، A هتبقى نضيفة.
-  4. **Goal Test**: هل كل المربعات نضيفة؟
-  5. **Path Cost**: كل حركة تكلفة 1.
-- **عدد الحالات**: 8 (2 مكان × 2 حالة لكل مكان: نضيف أو متسخ).
-
-**الخلاصة**: مشكلة المكنة بتوضح إزاي ننضف باستخدام حركات بسيطة.
-
-#### **3. 8-Puzzle**
-- **المشكلة:** لعبة فيها 8 أرقام ومربع فاضي، عايزة ترتبيهم من 1 لـ 8.
-- **الصياغة:**
-  1. **Initial State**: أي ترتيب (مثلاً 7,5,2 في أول صف).
-  2. **Actions**: حركي الفاضي (يمين، يسار، فوق، تحت).
-  3. **Transition Model**: لو حركتي الفاضي يمين، الرقم اللي جنبه هيتحرك يسار.
-  4. **Goal Test**: هل الترتيب بقى 1,2,3,4,5,6,7,8؟
-  5. **Path Cost**: كل حركة تكلفة 1.
-- **عدد الحالات**: حوالي 9! (362,880 ترتيب ممكن).
-
-**الخلاصة**: الـ 8-Puzzle بتشرح إزاي نحل لعبة ترتيب بالبحث.
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: دول وكلاء قايمين على الهدف بيحلوا مشاكل بإنهم يلاقوا خطوات للوصول لهدفهم.
+- **شرح أعمق**: 
+  - بيختاروا هدف (زي “وصل لبوخارست”) وبيحاولوا يلاقوا طريقة توصل ليه.
+  - **صياغة المشكلة**: تحديد المشكلة بخمس حاجات:
+    1. **الحالة الابتدائية**: تبدأ منين (زي أراد).
+    2. **الحركات**: تقدر تعمل إيه (زي السواقة).
+    3. **نموذج الانتقال**: إيه اللي بيحصل لما تعمل حاجة (تسوق من A لـ B، تبقى في B).
+    4. **اختبار الهدف**: تتأكد وصلت ولا لأ (إنت في بوخارست؟).
+    5. **تكلفة المسار**: بيكلف كام (زي المسافة أو الوقت).
+  - **البحث**: البحث عن الخطوات (تسلسل الحركات) من البداية للهدف.
 
 ---
 
-### **الجزء السادس: البحث عن الحلول (Searching for Solutions)**
-المحاضرة بتدخل في إزاي ندور على الحل باستخدام **Search Tree**.
+### 4. Example Problems
+- **Simple Idea**: Here are some problems agents might solve—like a trip, cleaning, or a puzzle.
+- **Deeper Look**: 
+  - **Romania Vacation**: 
+    - Start: Arad. Goal: Bucharest. Actions: Drive between cities. Cost: Distance. Transition: Drive from Arad to Sibiu, you’re in Sibiu.
+    - Solution: Arad → Sibiu → Fagaras → Bucharest.
+  - **Vacuum Cleaner**: 
+    - Start: Any spot (A or B, dirty or clean). Goal: All clean. Actions: Suck, Left, Right. Cost: 1 per move. Transition: Suck on dirty A → clean A.
+    - 8 possible states (2 spots × 2 dirt options).
+  - **8 Puzzle**: 
+    - Start: Tiles mixed up. Goal: Tiles in order (1-8, blank). Actions: Move blank up/down/left/right. Cost: 1 per move. Transition: Move blank right → new tile setup.
+    - Tons of states (9! = 362,880 possibilities).
 
-#### **إيه هو الـ Graph؟**
-- زي خريطة فيها نقاط (Nodes) وخطوط بينهم (Edges).
-- بيحسب تكلفة الطريق (Path Cost).
-
-#### **إيه هو الـ Search Tree؟**
-- شجرة بتبدأ من نقطة البداية (Root) وكل خطوة بتفتح فروع جديدة.
-- **مثال بسيط:**
-  - A (Root) → B, C.
-  - B → D, E.
-  - الشجرة بتبين كل الطرق الممكنة.
-
-#### **مشاكل الـ Transition Model:**
-- **Redundant Paths**: ممكن توصلي لنفس النقطة بأكتر من طريق.
-- **Cycles**: ممكن ترجعي لنقطة زرتيها (زي A → B → A).
-- **مثال رومانيا:** Arad → Sibiu → Arad (Loopy Path).
-
-#### **طرق البحث:**
-1. **Data-Driven Search**: بتبدأي من البداية وتتحركي للأمام لحد ما توصلي الهدف.
-2. **Goal-Driven Search**: بتبدأي من الهدف وترجعي لورا لحد ما توصلي البداية.
-
-#### **مثال رومانيا:**
-- **Root**: Arad.
-- **Expand Arad**: Sibiu, Timisoara, Zerind.
-- **Expand Sibiu**: Fagaras, Oradea, Rimnicu Vilcea (Arad بتتجنب عشان Loopy Path).
-
-**الخلاصة**: البحث بيستخدم شجرة عشان نلاقي الطريق من البداية للهدف، مع تجنب التكرار.
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: دي أمثلة لمشاكل الوكلاء ممكن يحلها—زي رحلة، تنضيف، أو لغز.
+- **شرح أعمق**: 
+  - **إجازة في رومانيا**: 
+    - البداية: أراد. الهدف: بوخارست. الحركات: السواقة بين المدن. التكلفة: المسافة. الانتقال: تسوق من أراد لسيبيو، تبقى في سيبيو.
+    - الحل: أراد → سيبيو → فاجاراس → بوخارست.
+  - **المكنسة الذكية**: 
+    - البداية: أي مكان (A أو B، وسخ أو نضيف). الهدف: كله نضيف. الحركات: مص، شمال، يمين. التكلفة: 1 لكل حركة. الانتقال: مص في A وسخ → A نضيف.
+    - 8 حالات ممكنة (مكانين × خيارين للوسخ).
+  - **لغز الـ8**: 
+    - البداية: البلاطات متلغبطة. الهدف: البلاطات مرتبة (1-8، فراغ). الحركات: حرك الفراغ فوق/تحت/يمين/شمال. التكلفة: 1 لكل حركة. الانتقال: حرك الفراغ يمين → ترتيب جديد.
+    - حالات كتير (9! = 362,880 احتمال).
 
 ---
 
-### **سؤال وجواب شامل لكل حاجة في المحاضرة**
+### 5. Searching for Solutions
+- **Simple Idea**: Searching is like exploring a map to find the best path from start to goal.
+- **Deeper Look**: 
+  - You build a **search tree**: Start at the root (initial state), branch out with actions (like roads), and keep going till you hit the goal.
+  - **Problem**: The real map (state space) isn’t a neat tree—it has loops (repeating states) and multiple paths to the same spot.
+  - **Goal**: Find the **optimal solution**—the path with the lowest cost (like shortest distance).
+  - Example: In Romania, Arad branches to Sibiu, Zerind, etc., and you keep expanding till Bucharest.
 
-#### **س1: إيه موضوع المحاضرة الثالثة؟**
-- **ج**: بتشرح إزاي نحل مشاكل باستخدام البحث في الذكاء الاصطناعي.
-
-#### **س2: مين اللي بيدرّس المحاضرة؟**
-- **ج**: د. دعاء الشحات من جامعة الزقازيق في مصر.
-
-#### **س3: إيه المحتوى الرئيسي للمحاضرة؟**
-- **ج**: مراجعة، أنواع الوكلاء، وكلاء حل المشاكل، أمثلة، وطرق البحث.
-
-#### **س4: إيه الـ 4 تصنيفات للذكاء الاصطناعي؟**
-- **ج**: Thinking Humanly، Thinking Rationally، Acting Humanly، Acting Rationally.
-
-#### **س5: إيه معنى Thinking Humanly؟**
-- **ج**: الكمبيوتر يفكر زي الإنسان، زي Cognitive Modeling.
-
-#### **س6: إيه معنى Acting Rationally؟**
-- **ج**: الكمبيوتر يتصرف بعقلانية ويعمل الصح في الوقت المناسب.
-
-#### **س7: إيه خصائص البيئة اللي اتذكرت؟**
-- **ج**: Fully/Partially Observable، Single/Multiagent، Competitive/Cooperative، Deterministic/Stochastic، Episodic/Sequential، Static/Dynamic، Discrete/Continuous.
-
-#### **س8: إيه معنى Sensors وActuators؟**
-- **ج**: Sensors بيشوف بيها (زي العين)، Actuators بيتصرف بيها (زي الإيد).
-
-#### **س9: إيه هو Simple Reflex Agent؟**
-- **ج**: وكيل بيتصرف بناءً على اللي شايفه دلوقتي من غير ذاكرة.
-
-#### **س10: إيه مثال على Simple Reflex Agent؟**
-- **ج**: Vacuum Cleaner بيمص الأوساخ على طول لو شافها.
-
-#### **س11: إيه هو Model-Based Reflex Agent؟**
-- **ج**: وكيل بيحتفظ بذاكرة عشان يقرر بناءً على اللي حصل قبل كده.
-
-#### **س12: إيه مثال على Model-Based Agent؟**
-- **ج**: عربية ذكية بتفتكر مكان العربيات التانية عشان تبطئ.
-
-#### **س13: إيه الفرق بين Simple Reflex وModel-Based؟**
-- **ج**: Simple بيتصرف على طول من غير ذاكرة، Model-Based بيفتكر اللي حصل عشان يقرر أذكى.
-
-#### **س14: إيه هو Goal-Based Agent؟**
-- **ج**: وكيل عنده هدف وبيدور على الطريق اللي يوصله ليه.
-
-#### **س15: إيه مثال على Goal-Based Agent؟**
-- **ج**: تاكسي بيروح المطار بيختار الطريق المناسب.
-
-#### **س16: إيه هو Utility-Based Agent؟**
-- **ج**: وكيل بيختار أفضل طريقة للهدف بناءً على فايدة.
-
-#### **س17: إيه مثال على Utility-Based Agent؟**
-- **ج**: تاكسي بيختار أسرع وأرخص طريق للمطار.
-
-#### **س18: إيه الفرق بين Goal-Based وUtility-Based؟**
-- **ج**: Goal-Based بيركز على الوصول للهدف، Utility-Based بيختار أحسن طريق للوصول.
-
-#### **س19: إيه هو Problem-Solving Agent؟**
-- **ج**: نوع من Goal-Based بيحدد هدف وبيدور على الحل.
-
-#### **س20: إيه مكونات صياغة المشكلة؟**
-- **ج**: Initial State، Actions، Transition Model، Goal Test، Path Cost.
-
-#### **س21: إزاي نصيغ مشكلة Romania Vacation؟**
-- **ج**: Initial: Arad، Actions: اسوق بين المدن، Transition: من Arad لـ Sibiu تبقى في Sibiu، Goal: Bucharest، Cost: المسافات.
-
-#### **س22: إزاي نصيغ مشكلة Vacuum Cleaner؟**
-- **ج**: Initial: أي مكان، Actions: يمين/يسار/Suck، Transition: Suck ينضف المربع، Goal: كل المربعات نضيفة، Cost: 1 لكل حركة.
-
-#### **س23: إزاي نصيغ مشكلة 8-Puzzle؟**
-- **ج**: Initial: أي ترتيب، Actions: حرك الفاضي، Transition: الفاضي يتبادل مع الرقم، Goal: 1-8 مرتب، Cost: 1 لكل حركة.
-
-#### **س24: إيه هو الـ Graph؟**
-- **ج**: خريطة فيها نقاط وخطوط بينهم، بتحسب تكلفة الطريق.
-
-#### **س25: إيه هو الـ Search Tree؟**
-- **ج**: شجرة تبدأ من البداية وتفتح فروع لحد ما توصل الهدف.
-
-#### **س26: إيه مثال Search Tree في رومانيا؟**
-- **ج**: Root: Arad، بعدين Sibiu وTimisoara وZerind، بعدين Sibiu تفتح Fagaras وOradea وRimnicu Vilcea.
-
-#### **س27: إيه معنى Redundant Paths؟**
-- **ج**: لما توصلي لنفس النقطة بأكتر من طريق.
-
-#### **س28: إيه معنى Loopy Path؟**
-- **ج**: لما ترجعي لنقطة زرتيها، زي Arad → Sibiu → Arad.
-
-#### **س29: إيه هو Data-Driven Search؟**
-- **ج**: بتبدأي من البداية وتتحركي للأمام لحد الهدف.
-
-#### **س30: إيه هو Goal-Driven Search؟**
-- **ج**: بتبدأي من الهدف وترجعي لورا لحد البداية.
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: البحث زي ما تستكشف خريطة عشان تلاقي أحسن طريق من البداية للهدف.
+- **شرح أعمق**: 
+  - بتعمل **شجرة بحث**: تبدأ من الجذر (الحالة الابتدائية)، تفرع بالحركات (زي الطرق)، وتكمل لحد ما توصل للهدف.
+  - **المشكلة**: الخريطة الحقيقية (فضاء الحالات) مش شجرة مرتبة—فيها دواير (حالات بتتكرر) وطرق كتير لنفس المكان.
+  - **الهدف**: تلاقي **الحل الأمثل**—الطريق اللي تكلفته أقل (زي أقصر مسافة).
+  - مثال: في رومانيا، أراد بتفرع لسيبيو، زيريند، إلخ، وتكمل التفريع لحد بوخارست.
 
 ---
 
-كده الشرح غطّى كل حاجة في المحاضرة بعمق وبساطة، لو عايزة أي حاجة تتفسر أكتر قوليلي!
+### 6. Uninformed Search Strategies
+- **Simple Idea**: These are blind ways to search—no clues, just keep trying paths.
+- **Deeper Look**: 
+  - The lecture doesn’t list them yet, but they’re hinted at (common ones from the book):
+    - **Breadth-First**: Check all paths level by level (slow but finds shortest path).
+    - **Depth-First**: Go deep down one path, then backtrack (fast but might miss the best path).
+  - No smart guesses—just explore everything step-by-step.
+  - Example: In Romania, try Arad → Sibiu, Arad → Zerind, etc., without knowing which is closer to Bucharest.
+
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: دي طرق بحث عمياني—مفيش تلميحات، بس جرب كل الطرق.
+- **شرح أعمق**: 
+  - المحاضرة لسه ماذكرتش التفاصيل، بس بتشير ليهم (من الكتاب الشائعة):
+    - **البحث العرضي**: شوف كل الطرق مستوى مستوى (بطيء بس بيلاقي أقصر طريق).
+    - **البحث العميق**: اتعمق في طريق واحد، وبعدين ارجع (سريع بس ممكن يفوته أحسن طريق).
+  - مفيش تخمين ذكي—بس استكشف كل حاجة خطوة بخطوة.
+  - مثال: في رومانيا، جرب أراد → سيبيو، أراد → زيريند، إلخ، من غير ما تعرف إيه أقرب لبوخارست.
+
+---
+
+### 7. Informed (Heuristic) Search Strategies
+- **Simple Idea**: These are smarter searches using hints to guess the best path.
+- **Deeper Look**: 
+  - Use a **heuristic**: A trick or guess (like “Bucharest is southeast, so head that way”).
+  - Faster because you focus on promising paths, not everything.
+  - Example: In Romania, instead of blindly trying all cities, go toward ones closer to Bucharest based on a map hint.
+
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: دي طرق بحث أذكى بتستخدم تلميحات عشان تختار أحسن طريق.
+- **شرح أعمق**: 
+  - بتستخدم **هيورستك**: خدعة أو تخمين (زي “بوخارست في الجنوب الشرقي، يبقى روح هناك”).
+  - أسرع لأنك بتركز على الطرق اللي تبدو كويسة، مش كل حاجة.
+  - مثال: في رومانيا، بدل ما تجرب كل المدن بعمى، روح ناحية المدن الأقرب لبوخارست حسب تلميح من الخريطة.
+
+---
+
+### 8. Heuristic Functions
+- **Simple Idea**: A heuristic is a smart guess that helps you pick the best move.
+- **Deeper Look**: 
+  - It’s a number telling you how close you are to the goal (lower is better).
+  - Example: In Romania, heuristic might be straight-line distance to Bucharest (Arad = 366 km, Sibiu = 253 km). Pick Sibiu—it’s closer!
+  - Makes searching faster by guiding you, but it’s just a guess, not perfect.
+
+**الترجمة بالعربي**:  
+- **الفكرة البسيطة**: الهيورستك هو تخمين ذكي بيساعدك تختار أحسن حركة.
+- **شرح أعمق**: 
+  - رقم بيقولك إنت قريب قد إيه من الهدف (أقل يعني أحسن).
+  - مثال: في رومانيا، الهيورستك ممكن يكون المسافة المستقيمة لبوخارست (أراد = 366 كم، سيبيو = 253 كم). اختار سيبيو—أقرب!
+  - بيخلّي البحث أسرع لأنه بيرشدك، بس هو تخمين، مش مثالي.
+
+---
+
+That’s Lecture 3—explained deeply and simply, sticking to the slides, with Arabic after each part. Let me know if you want more detail on any section!
