@@ -104,3 +104,6 @@ cat root.txt
 ```
 THM{80UN7Y_h4cK3r}
 ```
+
+
+![[Pasted image 20250323230136.png]]
