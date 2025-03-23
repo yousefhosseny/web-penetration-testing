@@ -15,7 +15,7 @@ An **intelligent agent** chooses actions based on its current situation.
 - **Decides** when to stop, speed up, or turn using AI.
 - **Acts** by pressing the brakes, turning the wheel, or accelerating.
 
-# **الشرح بالعربي**
+## **الشرح بالعربي**
 
 العامل الذكي هو أي كيان يستطيع:
 
@@ -62,7 +62,7 @@ An **intelligent agent** chooses actions based on its current situation.
 - **Agent architecture**: The physical parts (wheels, motor, sensors).
     
 
-# **الشرح بالعربي**
+## **الشرح بالعربي**
 
 العامل الذكي يتكون من:
 
@@ -178,6 +178,6 @@ Not all environments are the same. Some are **easy** for an agent, and some are 
 - بيئة **واضحة بالكامل** زي الشطرنج، وبيئة **جزئية** زي القيادة.
 - بيئة **محددة** زي الآلة الحاسبة، وبيئة **عشوائية** زي المرور.
 
-### **💡 الزتونة**
+## **💡 الزتونة**
 
 **كل ما زادت تعقيدات البيئة، كل ما احتجنا لعامل ذكي أكتر عشان يشتغل فيها كويس.** 🚀

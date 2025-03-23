@@ -20,7 +20,7 @@ Artificial Intelligence (AI) is the field of computer science that focuses on cr
 3. **Acting Humanly** – Making machines that behave like humans (Turing Test approach).
 4. **Acting Rationally** – Making machines that take the best possible actions to achieve goals.
 
-# **ما هو الذكاء الاصطناعي؟**
+## **ما هو الذكاء الاصطناعي؟**
 الذكاء الاصطناعي هو مجال في علوم الحاسب يركز على إنشاء آلات يمكنها التفكير والتصرف مثل البشر. يمكن فهم الذكاء الاصطناعي بأربعة طرق:
 
 1. **التفكير بطريقة بشرية** – جعل الآلات تفكر مثل الإنسان.
@@ -38,7 +38,7 @@ Artificial Intelligence (AI) is the field of computer science that focuses on cr
 
 AI started as an idea in the 1950s. Alan Turing proposed the **Turing Test** to check if a machine can behave like a human. Over time, AI has evolved, leading to systems like Siri, self-driving cars, and ChatGPT.
 
-# **تاريخ الذكاء الاصطناعي**
+## **تاريخ الذكاء الاصطناعي** :
 بدأ الذكاء الاصطناعي كفكرة في الخمسينيات. اقترح آلان تورينج **اختبار تورينج** لمعرفة ما إذا كانت الآلة يمكنها التصرف مثل الإنسان. على مر السنين، تطور الذكاء الاصطناعي، مما أدى إلى ظهور أنظمة مثل Siri والسيارات ذاتية القيادة وChatGPT.
 
 ## **ملخص:**
@@ -56,8 +56,7 @@ AI is used in many areas of our lives, such as:
 - **Social Media**: Facebook, Instagram, YouTube, TikTok
 - **Language Processing**: Google Translate, Grammarly, ChatGPT
 
-# **الذكاء الاصطناعي في حياتنا اليومية** 
-يُستخدم الذكاء الاصطناعي في العديد من المجالات مثل:
+## **الذكاء الاصطناعي في حياتنا اليومية** يُستخدم الذكاء الاصطناعي في العديد من المجالات مثل:
 
 - **المساعدات الرقمية**: Siri (Apple)، Alexa (Amazon)، Cortana (Microsoft)
 - **محركات البحث**: Google، Opera، Firefox، Safari
@@ -79,7 +78,7 @@ The Turing Test checks if a machine can mimic human intelligence so well that a 
 - Use logic and reasoning.
 - Learn from past experiences.
 
-## **اختبار تورينج** 
+## **اختبار تورينج** :
 يختبر اختبار تورينج ما إذا كانت الآلة تستطيع محاكاة الذكاء البشري لدرجة أن القاضي لا يستطيع التمييز بينها وبين الإنسان. لاجتياز الاختبار، يجب على الآلة:
 
 - فهم اللغة الطبيعية والرد بها.
@@ -87,7 +86,7 @@ The Turing Test checks if a machine can mimic human intelligence so well that a 
 - استخدام المنطق والاستدلال.
 - التعلم من التجارب السابقة.
 
-## **ملخص:**
+#### **ملخص:**
 
 اختبار تورينج يقيس قدرة الآلة على تقليد الذكاء البشري عبر الحوار والتفاعل الذكي.
 
@@ -101,7 +100,7 @@ Computer Vision helps machines understand images and videos. It is used for:
 - **Classification**: Recognizing what an object is.
 - **Segmentation**: Identifying which part of an image belongs to which object.
 
-## **الرؤية الحاسوبية** 
+## **الرؤية الحاسوبية** :
 تساعد الرؤية الحاسوبية الآلات على فهم الصور والفيديوهات. تُستخدم في:
 
 - **اكتشاف الأجسام**: تحديد الأجسام داخل الصور.
@@ -118,7 +117,7 @@ Computer Vision helps machines understand images and videos. It is used for:
 
 Robotics is the field of engineering that designs and builds machines (robots) to perform tasks. Some robots are controlled by AI, allowing them to act intelligently.
 
-## **الروبوتات**
+## **الروبوتات** :
 هو مجال هندسي يهدف إلى تصميم وبناء آلات (روبوتات) لأداء المهام. بعض الروبوتات تعمل بالذكاء الاصطناعي مما يجعلها تتصرف بذكاء.
 
 ## **ملخص:**
@@ -136,7 +135,7 @@ NLP helps computers understand and process human language. It is used for:
 - **Text Summarization**: Making long texts shorter.
 - **Chatbots**: AI that can talk with humans (like ChatGPT).
 
-## **معالجة اللغات الطبيعية (NLP)**
+## **معالجة اللغات الطبيعية (NLP)** :
 تساعد NLP أجهزة الحاسوب على فهم ومعالجة اللغة البشرية. تُستخدم في:
 
 - **تحويل الكلام إلى نص**: تحويل الكلمات المنطوقة إلى نصوص مكتوبة.
@@ -154,7 +153,7 @@ NLP helps computers understand and process human language. It is used for:
 
 AI is built using knowledge from philosophy, mathematics, neuroscience, economics, computer science, and linguistics.
 
-## **أسس الذكاء الاصطناعي** 
+## **أسس الذكاء الاصطناعي** : 
 يعتمد الذكاء الاصطناعي على الفلسفة، الرياضيات، علم النفس، الاقتصاد، علوم الحاسوب، واللغويات.
 
 ## **ملخص:**
