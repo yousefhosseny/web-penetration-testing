@@ -1,4 +1,4 @@
-cd "D:\Matrial of subjects\pentest\The Web Application Hacker  Handbook - Finding and Exploiting Security Flaws\Matrial of subjects"
+cd "D:\Matrial of subjects\pentest\The Web Application Hacker  Handbook - Finding and Exploiting Security Flaws\Web pentesting"
 
 git add .
 git commit -m "تحديث الملفات"
