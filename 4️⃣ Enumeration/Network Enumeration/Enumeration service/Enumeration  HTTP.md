@@ -156,7 +156,53 @@ nikto -h http:// بتاع التارجت ip
 
 ### هيظهرلي ملفات في الصفحه
 ![[Pasted image 20250305152443.png]]
+
+## اهم المسارات اللي هتحتاجها :
+```
+curl http://<IP>/admin
+curl http://<IP>/api/users
+curl http://<IP>/dashboard
+curl http://<IP>/config
+curl http://<IP>/manager
+curl http://<IP>/api/config
+curl http://<IP>/api/v1/users
+curl http://<IP>/phpmyadmin
+curl http://<IP>/wp-admin
+curl http://<IP>/user/1
+curl http://<IP>/user/2
+curl http://<IP>:8080/manager/html
+curl http://<IP>/etc/nginx
+curl http://<IP>/var/www/html
+curl http://<IP>http://<IP>/../etc/passwd
+curl http://<IP>/files
+curl http://<IP>
+curl http://<IP>
+curl http://<IP>
+curl http://<IP>
+curl http://<IP>
+curl http://<IP>
+
+
+
+
+
+```
+## اهم الملقات  اللي بتدور عليها في المسارات :
+```
+db_backup.sql
+.env
+backup.zip
+config.php
+backup.tar.gz
+wp-config.php
+index.php
+app.js
+web.config
+phpinfo.php
+```
+
 ## (ثالث سيناريوا ممكن تعمله )
+
 
 ## nikto بعد امر ال php ال version لو عرفت
 
@@ -199,7 +245,7 @@ search apache  version ال
 
 اعمل ملف اسمه user وملف اسمه باسورد دي اول خطوه خالص علشان كل م تلاقي اسم او باسورد في الخطوات كلها حطهم في الملفين دول
 
-
+وبعدين اعمل bruteforce علي صفحه ال login او علي ssh
 
 ## سادس سيناريوا 
 لو لقيت جوه ملفات الموقع صور زي اللي في الصوره دي ممكن يكون في صفح gobuster مش جابتها لان الصوره مش هتكون موجوده من فراغ اكيد في صفحه اذا اول متلاقي صور في الملفات اللي في الموقع اعمل الاتي
@@ -208,6 +254,11 @@ search apache  version ال
 
 
 ![[Pasted image 20250311155815.png]]
+
+
+
+
+
 
 ---
 
