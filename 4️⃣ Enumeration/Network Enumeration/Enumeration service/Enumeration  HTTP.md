@@ -145,7 +145,7 @@ Nikto بيدور على مشاكل الأمان في السيرفر، ولو ل�
 
 ## nikto بعد امر ال apache ال version او عرفت
 
-![[Pasted image 20250305152522.png]]
+![Pasted image 20250305152522.png](attachments/Pasted image 20250305152522.png)
 ## ممكن تروح تبحث علي جوجل وتقوله
 
 ```sql
@@ -174,7 +174,7 @@ search apache  version ال
 
 تعمل right click علي الموقع وتعمل inspect وتشوف الكود ممكن تلاقي comment في الكود
 
-![[Pasted image 20250310214935.png]]
+![Pasted image 20250310214935.png](attachments/Pasted image 20250310214935.png)
 
 
 
@@ -190,7 +190,7 @@ search apache  version ال
 خد اسم الصوره وجربه في الموقع بامتدادات php,html,asp,txt
 
 
-![[Pasted image 20250311155815.png]]
+![Pasted image 20250311155815.png](attachments/Pasted image 20250311155815.png)
 
 
 

@@ -115,7 +115,7 @@ ssh -i private_key.pem username@target_ip
 ```
 
 لو حصل مشكله زي دي :
-![[Pasted image 20250322004219.png]]
+![Pasted image 20250322004219.png](attachments/Pasted image 20250322004219.png)
 روح اعمل الامر ده :
 
 ```

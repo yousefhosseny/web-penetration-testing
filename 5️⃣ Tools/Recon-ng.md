@@ -152,7 +152,7 @@ run
 show
 ```
 
-![[Pasted image 20250304222005.png]]
+![Pasted image 20250304222005.png](attachments/Pasted image 20250304222005.png)
 
 ---
 
