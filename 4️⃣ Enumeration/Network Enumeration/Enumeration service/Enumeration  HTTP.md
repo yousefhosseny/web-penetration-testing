@@ -138,69 +138,6 @@ Nikto بيدور على مشاكل الأمان في السيرفر، ولو ل�
 # من شرح الكورس 
 
 
-## لو لقيت في ناتج ال (service ⇒ http ) scan مفتوحه
-
-### بروح افتح المتصفح واكتب الامر التالي ال
-
-```bash
-http:// بتاع التارجت ip
-```
-
-### لو لقيت في موقع فتح معاك اعمل الخطوات التاليه
-
-#### استخدم ال tool الاتيه
-
-```bash
-nikto -h http:// بتاع التارجت ip
-```
-
-### هيظهرلي ملفات في الصفحه
-![[Pasted image 20250305152443.png]]
-
-## اهم المسارات اللي هتحتاجها :
-```
-curl http://<IP>/admin
-curl http://<IP>/api/users
-curl http://<IP>/dashboard
-curl http://<IP>/config
-curl http://<IP>/manager
-curl http://<IP>/api/config
-curl http://<IP>/api/v1/users
-curl http://<IP>/phpmyadmin
-curl http://<IP>/wp-admin
-curl http://<IP>/user/1
-curl http://<IP>/user/2
-curl http://<IP>:8080/manager/html
-curl http://<IP>/etc/nginx
-curl http://<IP>/var/www/html
-curl http://<IP>http://<IP>/../etc/passwd
-curl http://<IP>/files
-curl http://<IP>
-curl http://<IP>
-curl http://<IP>
-curl http://<IP>
-curl http://<IP>
-curl http://<IP>
-
-
-
-
-
-```
-## اهم الملقات  اللي بتدور عليها في المسارات :
-```
-db_backup.sql
-.env
-backup.zip
-config.php
-backup.tar.gz
-wp-config.php
-index.php
-app.js
-web.config
-phpinfo.php
-```
-
 ## (ثالث سيناريوا ممكن تعمله )
 
 

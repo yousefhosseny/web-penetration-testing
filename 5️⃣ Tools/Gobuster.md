@@ -25,15 +25,20 @@
 
 #### 1️⃣ **اكتشاف المجلدات والملفات (Dir Mode)**
 ```bash
-gobuster dir -u http://example.com -w /path/to/wordlist.txt
+gobuster dir -u http://test.com -w /usr/share/wordlists/dirb/wordlist.txt
 ```
+#### لو الصفحه كانت بتطلب user و password فانت لازم تعمل الامر زي كده :
+```
+gobuster -U username -P pasword - dir -u http://10.10.173.35:8080/ -w /usr/share/wordlists/dirb/common.txt
+```
+
 - `dir`: وضع البحث عن مجلدات وملفات.
 - `-u`: الرابط بتاع الموقع (URL).
 - `-w`: مسار قايمة الكلمات (Wordlist).
 
 **مثال:**
 ```bash
-gobuster dir -u http://test.com -w /usr/share/wordlists/dirb/common.txt
+gobuster dir -u http://test.com -w /usr/share/wordlists/dirb/wordlist.txt
 ```
 👉 النتيجة: بيطلعلك زي `/admin`, `/login`, `/backup` لو موجودين.
 
